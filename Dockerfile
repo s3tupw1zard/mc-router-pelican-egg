@@ -47,6 +47,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=downloader /out/mc-router /usr/local/bin/mc-router
+COPY licenses/mc-router-LICENSE.txt /usr/share/licenses/mc-router/LICENSE.txt
 COPY --chown=container:container entrypoint.sh /entrypoint.sh
 
 RUN chmod 0755 /usr/local/bin/mc-router /entrypoint.sh
