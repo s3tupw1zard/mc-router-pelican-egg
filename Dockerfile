@@ -43,6 +43,8 @@ RUN apt-get update \
         iproute2 \
         tini \
         tzdata \
+        curl \
+        iputils-ping \
     && useradd -m -d /home/container -s /bin/bash container \
     && rm -rf /var/lib/apt/lists/*
 
