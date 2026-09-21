@@ -4,7 +4,7 @@
         "version": "PLCN_v3",
         "update_url": "https://raw.githubusercontent.com/s3tupw1zard/mc-router-pelican-egg/main/egg-mc-router.json"
     },
-    "exported_at": "2026-09-21T13:55:00+00:00",
+    "exported_at": "2026-09-21T18:04:00+00:00",
     "name": "mc-router",
     "author": "50152835+s3tupw1zard@users.noreply.github.com",
     "uuid": "b8f16f2d-77ea-4dfe-a5ee-6706f8f692f7",
@@ -21,8 +21,7 @@
     },
     "file_denylist": [],
     "startup_commands": {
-        "Routes file (recommended)": "PORT={{SERVER_PORT}} ROUTES_CONFIG=\"{{ROUTES_CONFIG}}\" ROUTES_CONFIG_WATCH=\"{{ROUTES_CONFIG_WATCH}}\" /usr/local/bin/mc-router",
-        "Environment mappings": "PORT={{SERVER_PORT}} ROUTES_CONFIG=\"\" ROUTES_CONFIG_WATCH=false /usr/local/bin/mc-router"
+        "Default": "PORT={{SERVER_PORT}} ROUTES_CONFIG=\"routes.json\" ROUTES_CONFIG_WATCH=true /usr/local/bin/mc-router"
     },
     "config": {
         "files": "{}",
@@ -32,199 +31,10 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\nset -e\n\nmkdir -p /mnt/server\n\nif [[ ! -f /mnt/server/routes.json ]]; then\n    cat > /mnt/server/routes.json <<'EOF'\n{\n  \"default-server\": \"\",\n  \"mappings\": {}\n}\nEOF\nfi\n\necho \"mc-router installation complete.\"\necho \"Edit routes.json or use the Environment mappings startup command.\"\n",
+            "script": "#!/bin/bash\nset -e\n\nmkdir -p /mnt/server\n\nif [[ ! -f /mnt/server/routes.json.example ]]; then\n    cat > /mnt/server/routes.json.example <<'EOF'\n{\n  \"default-server\": \"\",\n  \"mappings\": {\n    \"smp.example.com\": \"10.0.0.10:50000\",\n    \"private.example.com\": \"10.0.0.11:50001\"\n  }\n}\nEOF\nfi\n\nif [[ ! -f /mnt/server/routes.json ]]; then\n    cp /mnt/server/routes.json.example /mnt/server/routes.json\nfi\n\necho \"mc-router installation complete.\"\necho \"Edit routes.json to configure hostname routing.\"\n",
             "container": "ghcr.io/pelican-eggs/installers:debian",
             "entrypoint": "bash"
         }
     },
-    "variables": [
-        {
-            "name": "Routes config",
-            "description": "Path to the JSON routes file. The recommended startup command watches this file for changes.",
-            "env_variable": "ROUTES_CONFIG",
-            "default_value": "routes.json",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string",
-                "max:255"
-            ],
-            "sort": 1
-        },
-        {
-            "name": "Watch routes config",
-            "description": "Reload the routes file when it changes. Do not combine watched routes with MAPPING; a reload resets routes before re-reading the file.",
-            "env_variable": "ROUTES_CONFIG_WATCH",
-            "default_value": "true",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "boolean"
-            ],
-            "sort": 2
-        },
-        {
-            "name": "Mappings",
-            "description": "Optional comma- or newline-separated mappings such as play.example.com=10.0.0.10:25565. Intended for the Environment mappings startup command.",
-            "env_variable": "MAPPING",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 3
-        },
-        {
-            "name": "Default backend",
-            "description": "Optional host:port used when no hostname mapping matches. For routes-file mode, prefer default-server in routes.json.",
-            "env_variable": "DEFAULT",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string",
-                "max:255"
-            ],
-            "sort": 4
-        },
-        {
-            "name": "Log level",
-            "description": "mc-router log filtering level.",
-            "env_variable": "LOG_LEVEL",
-            "default_value": "info",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string",
-                "in:debug,info,warn,error"
-            ],
-            "sort": 5
-        },
-        {
-            "name": "Connection rate limit",
-            "description": "Maximum incoming connections per second. mc-router enforces a minimum of 1.",
-            "env_variable": "CONNECTION_RATE_LIMIT",
-            "default_value": "10",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer",
-                "min:1",
-                "max:100000"
-            ],
-            "sort": 6
-        },
-        {
-            "name": "Record logins",
-            "description": "Log player login information and make login metrics available to supported metrics backends.",
-            "env_variable": "RECORD_LOGINS",
-            "default_value": "false",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "boolean"
-            ],
-            "sort": 7
-        },
-        {
-            "name": "Send PROXY protocol",
-            "description": "Send PROXY protocol to backend servers. The backend must be configured to accept it.",
-            "env_variable": "USE_PROXY_PROTOCOL",
-            "default_value": "false",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "boolean"
-            ],
-            "sort": 8
-        },
-        {
-            "name": "Receive PROXY protocol",
-            "description": "Expect PROXY protocol from the frontend proxy. Do not enable together with Dynamic PROXY protocol.",
-            "env_variable": "RECEIVE_PROXY_PROTOCOL",
-            "default_value": "false",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "boolean"
-            ],
-            "sort": 9
-        },
-        {
-            "name": "Dynamic PROXY protocol",
-            "description": "Accept connections with or without PROXY protocol and forward received headers. Cannot be combined with send/receive PROXY protocol.",
-            "env_variable": "DYNAMIC_PROXY_PROTOCOL",
-            "default_value": "false",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "boolean"
-            ],
-            "sort": 10
-        },
-        {
-            "name": "Trusted proxies",
-            "description": "Optional comma-separated CIDR blocks trusted to provide PROXY headers, for example 10.0.0.0/8,100.64.0.0/10.",
-            "env_variable": "TRUSTED_PROXIES",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 11
-        },
-        {
-            "name": "Clients to allow",
-            "description": "Optional comma-separated client IPs or CIDRs to allow. When set, it takes precedence over the deny list.",
-            "env_variable": "CLIENTS_TO_ALLOW",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 12
-        },
-        {
-            "name": "Clients to deny",
-            "description": "Optional comma-separated client IPs or CIDRs to deny.",
-            "env_variable": "CLIENTS_TO_DENY",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 13
-        },
-        {
-            "name": "Timezone",
-            "description": "Timezone used for log timestamps, for example Europe/Berlin.",
-            "env_variable": "TZ",
-            "default_value": "UTC",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string",
-                "max:64"
-            ],
-            "sort": 14
-        }
-    ]
+    "variables": []
 }
