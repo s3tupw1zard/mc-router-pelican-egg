@@ -1,0 +1,7 @@
+{
+  "default-server": "",
+  "mappings": {
+    "smp.example.com": "10.0.0.10:50000",
+    "private.example.com": "10.0.0.11:50001"
+  }
+}
