@@ -21,7 +21,7 @@
     },
     "file_denylist": [],
     "startup_commands": {
-        "Default": "PORT={{SERVER_PORT}} ROUTES_CONFIG=\"routes.json\" ROUTES_CONFIG_WATCH=true /usr/local/bin/mc-router"
+        "Default": "env PORT={{SERVER_PORT}} ROUTES_CONFIG=\"routes.json\" ROUTES_CONFIG_WATCH=true /usr/local/bin/mc-router"
     },
     "config": {
         "files": "{}",
