@@ -28,7 +28,7 @@
         "files": "{}",
         "startup": "{\"done\": \"Listening for Minecraft client connections\"}",
         "logs": "{}",
-        "stop": "^^C"
+        "stop": "^C"
     },
     "scripts": {
         "installation": {
@@ -45,9 +45,12 @@
             "default_value": "routes.json",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|string|max:255",
-            "sort": 1,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "string",
+                "max:255"
+            ],
+            "sort": 1
         },
         {
             "name": "Watch routes config",
@@ -56,9 +59,11 @@
             "default_value": "true",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|boolean",
-            "sort": 2,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "boolean"
+            ],
+            "sort": 2
         },
         {
             "name": "Mappings",
@@ -67,9 +72,11 @@
             "default_value": "",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "nullable|string",
-            "sort": 3,
-            "field_type": "text"
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 3
         },
         {
             "name": "Default backend",
@@ -78,9 +85,12 @@
             "default_value": "",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "nullable|string|max:255",
-            "sort": 4,
-            "field_type": "text"
+            "rules": [
+                "nullable",
+                "string",
+                "max:255"
+            ],
+            "sort": 4
         },
         {
             "name": "Log level",
@@ -89,9 +99,12 @@
             "default_value": "info",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|string|in:debug,info,warn,error",
-            "sort": 5,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "string",
+                "in:debug,info,warn,error"
+            ],
+            "sort": 5
         },
         {
             "name": "Connection rate limit",
@@ -100,9 +113,13 @@
             "default_value": "10",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|integer|min:1|max:100000",
-            "sort": 6,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "integer",
+                "min:1",
+                "max:100000"
+            ],
+            "sort": 6
         },
         {
             "name": "Record logins",
@@ -111,9 +128,11 @@
             "default_value": "false",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|boolean",
-            "sort": 7,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "boolean"
+            ],
+            "sort": 7
         },
         {
             "name": "Send PROXY protocol",
@@ -122,9 +141,11 @@
             "default_value": "false",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|boolean",
-            "sort": 8,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "boolean"
+            ],
+            "sort": 8
         },
         {
             "name": "Receive PROXY protocol",
@@ -133,9 +154,11 @@
             "default_value": "false",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|boolean",
-            "sort": 9,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "boolean"
+            ],
+            "sort": 9
         },
         {
             "name": "Dynamic PROXY protocol",
@@ -144,9 +167,11 @@
             "default_value": "false",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|boolean",
-            "sort": 10,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "boolean"
+            ],
+            "sort": 10
         },
         {
             "name": "Trusted proxies",
@@ -155,9 +180,11 @@
             "default_value": "",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "nullable|string",
-            "sort": 11,
-            "field_type": "text"
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 11
         },
         {
             "name": "Clients to allow",
@@ -166,9 +193,11 @@
             "default_value": "",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "nullable|string",
-            "sort": 12,
-            "field_type": "text"
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 12
         },
         {
             "name": "Clients to deny",
@@ -177,9 +206,11 @@
             "default_value": "",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "nullable|string",
-            "sort": 13,
-            "field_type": "text"
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 13
         },
         {
             "name": "Timezone",
@@ -188,9 +219,12 @@
             "default_value": "UTC",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|string|max:64",
-            "sort": 14,
-            "field_type": "text"
+            "rules": [
+                "required",
+                "string",
+                "max:64"
+            ],
+            "sort": 14
         }
     ]
 }
